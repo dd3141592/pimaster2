@@ -1,0 +1,38 @@
+<Template name="gamesScrollView">
+    <!-- We have to define a context because iron:router is rendering this template -->
+    {{#famousContext id='mainCtx'}}
+ 
+ 
+    {{#HeaderFooterLayout id="hfl" size="[undefined,undefined]" headerSize="80" footerSize="50"}}
+ 
+    <!-- this is our text enter field and other stuff that displays in the header area
+         probably could get by with undefined,undefined as the size since header is already defined as y = 80
+    -->
+    {{#View  target="header" size="[undefined,80]"  }}
+    <!-- backing surface just to give the header some color - notice the z index of 18 -->
+    {{#Surface id="backing1" translate="[0,0,18]"  size="[undefined,undefined]" class="headerData" }}{{/Surface}}
+    <!-- the actual HTML for our text field - notice the z index of 20 puts it in front of backing surface-->
+    {{>Surface template="enterGames"  origin="[0,0]" align="[0.05,.2]" translate="[0,0,20]"}}
+    {{/View}}
+ 
+    <!-- scrollview that will contain our chat entries - renders in 'content' -->
+    {{#Scrollview  target="content" size="[undefined,undefined]" origin="[0,0]" align="[0,0]"}}
+ 
+    <!-- use the items helper to iterate through each record of our collection and render using
+         the chatItemContent template. these item surfaces are completely reactive! (auto update
+         with database changes)
+    -->
+    {{#famousEach items}}
+    {{>Surface  template="gamesItemContent" size="[undefined,100]" modifier="Modifier"}}
+    {{/famousEach}}
+ 
+    {{/Scrollview}}
+ 
+    <!-- render a footer template so we can add a 'home' button -->
+    {{>View size="[undefined,undefined]" target="footer" template="gamesFoot"}}
+ 
+    {{/HeaderFooterLayout}}
+ 
+    {{/famousContext}}
+ 
+</Template>

@@ -1,0 +1,52 @@
+<Template name="appMainView">
+{{#famousContext id='mainCtx'}}
+
+
+<!-- Create a backing surface that sizes to the entire window. This would be like the 'body'
+     background setting in HTML. It can contain text or image or any content you wish. We don't
+     have any content in ours and are only setting the background-color via the 'backing' class.
+     We have a very special use for this surface as you will later see. Also note that the
+     z-index is set to -20 in the translation. (After all, it is the BACK of our page!)
+-->
+    {{#Surface id="backing" size="[undefined,undefined]" class="backing" 
+      translate="[0,0,-2]"}}
+    {{/Surface}}
+    <!-- Insert this line right AFTER the {{#Surface id="backing"..... block, but before
+     the {{#HeaderFooterLayout...... block.
+
+     This the main View for our sidebar where we define its size and placement. We
+     are using a translate function to 'move' it 10px to the right and 30px down from
+     the upper left corner (origin 0,0) of the window. We assign a z-index of -5.
+-->
+
+    {{>View id="sidebar" template="sidebar" size="[200,500]" origin="[0,0]" align="[0,0]" 
+  translate="[10,30,-5]"}}
+<!-- Next we create the Header-Footer view using the Famo.us HeaderFootLayout view. We could have 
+     built this from scratch ourselves but it's easier to use the Famo.us component.
+     The HeaderFooterLayout is created to take up the entire window with a header size set to 
+     50 pixels and the footer size set to 50 pixels. The width and main content is responsive as
+     the browser is resized. The header and footer stay fixed at a height of 50px. There is a way
+     to make the layout horizontal with header on the left, center content, and footer on the
+     right. Refer to the Famo.us documentation for examples of this.
+
+     The contents of the HeaderFooterLayout component contains three child components. A surface 
+     or view that gets rendered to the header area, one that gets rendered as main content and
+     one that is rendered to the footer area.
+--> 
+    {{#HeaderFooterLayout id="hfl" size="[undefined,undefined]" 
+       headerSize="50" footerSize="50"}}
+<!-- Very simple content here just to show it works. The target parameter tells famous-views 
+     where we want the surface rendered (header, footer, or content)
+-->
+        {{>View template = "headerContent" target="header" size="[undefined,undefined]"}}
+        {{>View template = "footerContent" target="footer" size="[undefined,undefined]"}}
+        {{>View  template="rcHeadFootContent" target="content" 
+                size="[undefined,undefined]" translate="[0,0,-1]"}}          
+
+    {{/HeaderFooterLayout}}
+
+
+
+
+{{/famousContext}}
+    </Template>

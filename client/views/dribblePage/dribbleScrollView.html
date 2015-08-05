@@ -1,0 +1,14 @@
+<Template name="dribbleScrollView">
+
+    {{#View size="[undefined,undefined]" origin="[0,0]" align="[0,0]"}}
+
+    {{#Surface id="backing2" translate="[0,0,-1]" size="[undefined,undefined]"
+         class="bg-darkgray" }}{{/Surface}}
+    {{#Scrollview size="[undefined,undefined]"}}
+        {{>Surface size="[undefined,auto]" class='task' id="dribble" template="dribbleContent" }}
+    {{/Scrollview}}
+
+
+    {{/View}}
+
+</Template>
